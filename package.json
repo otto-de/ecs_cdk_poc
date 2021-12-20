@@ -1,0 +1,86 @@
+{
+  "name": "@otto-ec/ft5_ecs_article",
+  "version": "1.1.45",
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "copyNonBuilds": "mkdir -p dist/util/service-registry/runtime && cp src/util/service-registry/runtime/index.ts dist/util/service-registry/runtime/index.ts && mkdir -p dist/util/aws-s3-copy/lib/lambda && cp src/util/aws-s3-copy/lib/lambda/index.py dist/util/aws-s3-copy/lib/lambda/index.py",
+    "prepublishOnly": "npm test && npm run lint && npm run build",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc && npm run copyNonBuilds",
+    "watch": "tsc -w",
+    "lint": "eslint --max-warnings 0 src/**",
+    "lint:fix": "eslint src/** --fix",
+    "test": "npm run lint && jest --runInBand",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.124.0",
+    "@aws-cdk/aws-certificatemanager": "^1.124.0",
+    "@aws-cdk/aws-cloudwatch": "^1.124.0",
+    "@aws-cdk/aws-cloudwatch-actions": "^1.124.0",
+    "@aws-cdk/aws-custom-resources": "^0.8.1",
+    "@aws-cdk/aws-ec2": "^1.124.0",
+    "@aws-cdk/aws-ecs": "^1.124.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.124.0",
+    "@aws-cdk/aws-logs": "^1.124.0",
+    "@aws-cdk/aws-route53": "^1.124.0",
+    "@aws-cdk/aws-route53-targets": "^1.124.0",
+    "@aws-cdk/aws-s3": "^1.124.0",
+    "@aws-cdk/aws-secretsmanager": "^1.124.0",
+    "@aws-cdk/aws-sns": "^1.124.0",
+    "@aws-cdk/core": "^1.124.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "aws-cdk": "^1.124.0",
+    "aws-sdk": "^2.904.0",
+    "aws-sdk-mock": "^5.1.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "lerna": "^4.0.0",
+    "prettier": "^2.3.0",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otto-de/ft5_ecs_article.git"
+  },
+  "peerDependencies": {
+    "@aws-cdk/assert": "^1.124.0",
+    "@aws-cdk/aws-certificatemanager": "^1.124.0",
+    "@aws-cdk/aws-cloudwatch": "^1.124.0",
+    "@aws-cdk/aws-cloudwatch-actions": "^1.124.0",
+    "@aws-cdk/aws-ec2": "^1.124.0",
+    "@aws-cdk/aws-logs": "^1.124.0",
+    "@aws-cdk/aws-route53": "^1.124.0",
+    "@aws-cdk/aws-route53-targets": "^1.124.0",
+    "@aws-cdk/aws-s3": "^1.124.0",
+    "@aws-cdk/aws-events": "^1.124.0",
+    "@aws-cdk/aws-s3-notifications": "^1.124.0",
+    "@aws-cdk/aws-sns": "^1.124.0",
+    "@aws-cdk/aws-ssm": "^1.124.0",
+    "@aws-cdk/core": "^1.124.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "docker run -v $(pwd):/path zricethezav/gitleaks:latest protect --source /path --staged -c /path/.gitleaks.toml --verbose",
+      "pre-push": "lerna run lint && lerna run test"
+    }
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "roots": [
+      "<rootDir>/src"
+    ]
+  },
+  "gitHead": "6531e70574610827c5d7ed081196f47363fc8d77"
+}
